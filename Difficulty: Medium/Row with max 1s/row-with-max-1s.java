@@ -31,28 +31,35 @@ public class Main {
 // User function Template for Java
 
 class Solution {
-    public int rowWithMax1s(int arr[][]) {
-        int cnt = 0 ;
-        
-        int maxi = -1;
-        for(int i = 0 ; i < arr.length; i++) {
-            int cnt_1 = 0 ;
-            for(int j = 0 ; j < arr[0].length ; j++) {
-                if(arr[i][j] == 1 ) {
-                    cnt_1++ ;
-                }
+    public  int solverawcount(int arr[] , int x ) {
+        int low = 0 ;
+        int n = arr.length ;
+        int high = n -1 ;
+        int ans = n ; 
+        while(low <= high) {
+            int mid = low+(high-low) /2 ;
+            if(arr[mid] >= x) {
+                ans = mid ;
+                high = mid -1 ;
             }
-            
-            if( cnt < cnt_1) {
-                cnt = cnt_1 ;
-                maxi = i ;
+            else {
+                low = mid + 1 ;
             }
-   
         }
-        
-        // code here
-  
-        return maxi
-        ;
+        return ans ; 
+    }
+    public int rowWithMax1s(int arr[][]) {
+       int max = 0 ;
+       int size = arr[0].length;
+       int index = -1 ;
+       for(int i = 0 ; i < arr.length; i++) {
+           int index_1 = solverawcount(arr[i] , 1 ) ;
+           int cnt_1 = size - index_1 ;
+           if(cnt_1 > max) {
+               max = cnt_1;
+               index = i ;
+           }
+       }
+       return index ; 
     }
 }
